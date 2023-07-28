@@ -7,7 +7,7 @@ import 'package:product_cart/shared/strings_const.dart';
 
 class ProductApiService {
   Future<List<ProductModel>> fetchProductList() async {
-    String url = ApiEndpoints.getProductUrl();
+    String url = ApiEndpoints.productUrl();
     Uri uri = Uri.parse(url);
     http.Response response = await http.get(uri);
 
@@ -21,6 +21,21 @@ class ProductApiService {
       }
 
       return productList;
+    }
+
+    throw somethingWrong;
+  }
+
+  Future<bool> addProduct(ProductModel product) async {
+    String url = ApiEndpoints.productUrl();
+    Uri uri = Uri.parse(url);
+    http.Response response = await http.post(
+      uri,
+      body: jsonEncode(product.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
     }
 
     throw somethingWrong;
