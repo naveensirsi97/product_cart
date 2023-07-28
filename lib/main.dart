@@ -8,7 +8,21 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 void main() {
-  runApp(const ProductKartApp());
+  List<SingleChildWidget> initProviders() {
+    ProductApiService productApiService = ProductApiService();
+    return [
+      ChangeNotifierProvider<ProductProvider>(
+        create: (_) => ProductProvider(
+          productApiService,
+        )..fetchProductList(),
+      ),
+    ];
+  }
+
+  runApp(MultiProvider(
+    providers: initProviders(),
+    child: const ProductKartApp(),
+  ));
 }
 
 class ProductKartApp extends StatelessWidget {
@@ -23,21 +37,7 @@ class ProductKartApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
       ),
-      home: MultiProvider(
-        providers: initProviders(),
-        child: const ProductListScreen(),
-      ),
+      home: const ProductListScreen(),
     );
-  }
-
-  List<SingleChildWidget> initProviders() {
-    ProductApiService productApiService = ProductApiService();
-    return [
-      ChangeNotifierProvider<ProductProvider>(
-        create: (_) => ProductProvider(
-          productApiService,
-        )..fetchProductList(),
-      ),
-    ];
   }
 }
