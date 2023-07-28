@@ -24,4 +24,13 @@ class ProductProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  Future addProduct(ProductModel product) async {
+    try {
+      bool isSuccess = await productApiService.addProduct(product);
+      print('Product added $isSuccess');
+    } catch (e) {
+      print('Error $e');
+    }
+  }
 }

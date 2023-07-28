@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_cart/product/provider/product_provider.dart';
+import 'package:product_cart/product/ui/screen/add_product_screen.dart';
 import 'package:product_cart/product/ui/widget/product_row_widget.dart';
 import 'package:product_cart/shared/strings_const.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,14 @@ class ProductListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(appName),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return const AddProductScreen();
+          }));
+        },
+        child: const Icon(Icons.add),
       ),
       body: Consumer<ProductProvider>(
         builder: (context, provider, child) {
