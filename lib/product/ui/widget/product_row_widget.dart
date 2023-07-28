@@ -31,8 +31,10 @@ class ProductRowWidget extends StatelessWidget {
                     child: Center(
                       child: CachedNetworkImage(
                         imageUrl: productModel.image,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
+                        placeholder: (context, url) => const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 1)),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                       ),
